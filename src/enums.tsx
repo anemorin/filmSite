@@ -36,4 +36,9 @@ export const colors = {
   agonaBlue: '#002DFF',
   lightBlue: '#7676801F',
   gray: '#8E8E93',
+  red: '#EB5757',
+}
+
+export const regexp = {
+  mail: /^([a-zA-Z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i,
 }

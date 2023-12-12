@@ -1,19 +1,11 @@
 import styled from "styled-components"
-import InputComponent from "../components/InputComponent"
 import PageLayout from "../components/PageLayout"
-import { colors, icons } from "../enums"
-import { NavLink, Route, Routes, useNavigate } from "react-router-dom"
-import { useEffect } from "react"
-
-const Button = styled.button`
-  padding: 14px 40px;
-  border: 3px solid ${colors.agonaBlue};
-  margin: 110px 0 52px;
-  border-radius: 25px;
-  color: ${colors.agonaBlue};
-  font-weight: 700;
-  background-color: ${colors.white};
-`
+import { icons } from "../enums"
+import { Route, Routes, useNavigate } from "react-router-dom"
+import { useCallback, useEffect, useState } from "react"
+import UseStores from "../hooks/useStores"
+import LogIn from "../components/Authorization/LogIn"
+import Register from "../components/Authorization/Register"
 
 const Logo = styled.img`
   margin: 200px 0 100px;
@@ -21,22 +13,30 @@ const Logo = styled.img`
   max-height: 50px;
 `
 
-const UnderTitle = styled.p`
-  font-size: 15px;
-  font-weight: 400;
-  color: ${colors.gray};
-`
-
-const NavigationLink = styled(NavLink)`
-  color: ${colors.agonaBlue};
-  font-weight: 700;
-  text-decoration: none;
-`
-
 const Authorization = () => {
   const navigate = useNavigate();
+  const { accountStore } = UseStores();
+  const [error, setError] = useState('');
   useEffect(() => {
     navigate('/authorization/login')
+  }, [])
+
+  const onLogInHandler = useCallback(() => {
+    if (accountStore.canLogIn) {
+      accountStore.setCurrentUser()
+      navigate('/')
+    } else {
+      setError('Неверный логин или пароль')
+    }
+  }, [accountStore.userMail, accountStore.userPassword])
+
+  const onRegistrationHandler = useCallback(() => {
+    if (accountStore.canRegister() === undefined) {
+      accountStore.registration()
+      navigate('/')
+    } else (
+      setError(accountStore.canRegister() ?? '')
+    )
   }, [])
 
   return (
@@ -45,64 +45,11 @@ const Authorization = () => {
       <Routes>
         <Route
           path="/login"
-          element={(
-            <>
-              <InputComponent
-                placeholder="Адрес электронной почты"
-                validate="email"
-                width="375"
-                isRequired={true}
-                textAlign="center"
-              />
-              <InputComponent
-                placeholder="Пароль"
-                validate="password"
-                width="375"
-                isRequired={true}
-                textAlign="center"
-              />
-              <Button
-                onClick={() => {navigate('/')}}
-              >Войти</Button>
-              <UnderTitle>Еще не зарегистрированы? <NavigationLink to='/authorization/registration'>Регистрация</NavigationLink></UnderTitle>
-            </>
-          )}
+          element={<LogIn onClick={onLogInHandler} error={error} />}
         />
         <Route
           path="/registration"
-          element={(
-            <>
-              <InputComponent
-                placeholder="Адрес электронной почты"
-                validate="email"
-                width="375"
-                isRequired={true}
-                textAlign="center"
-              />
-              <InputComponent
-                placeholder="Пароль"
-                validate="password"
-                width="375"
-                isRequired={true}
-                textAlign="center"
-              />
-              <InputComponent
-                placeholder="Повторите пароль"
-                validate="password"
-                width="375"
-                isRequired={true}
-                textAlign="center"
-              />
-              <Button
-                onClick={() => {
-                  navigate('/')
-                }}
-              >
-                Регистрация
-              </Button>
-              <UnderTitle>Есть логин для входа? <NavigationLink to='/authorization/login'>Войти</NavigationLink></UnderTitle>
-            </>
-          )}
+          element={<Register onClick={onRegistrationHandler} error={error} />}
         />
       </Routes>
     </PageLayout>

@@ -3,9 +3,9 @@ import { PageTitle } from "../components/PageTitle";
 import styled from "styled-components";
 import InputComponent from "../components/InputComponent";
 import { icons } from "../enums";
-import { user } from "../assets/data/user.data";
 import { useCallback, useState } from "react";
 import ModalWindow from "../components/ModalWindow";
+import UseStores from "../hooks/useStores";
 
 const Image = styled.img`
   margin: 10px 0 50px 0;
@@ -26,7 +26,7 @@ const InputContainers = styled.div`
 
 const Profile = () => {
   const [modalWindow, setModalWindow] = useState(false);
-
+  const { accountStore } = UseStores()
   const closeHandler = useCallback(() => {
     setModalWindow(false);
   }, [modalWindow])
@@ -36,11 +36,22 @@ const Profile = () => {
       <PageTitle>
         Профиль
       </PageTitle>
-      <Image src={user.icon} alt="Загрузить фото"/>
+      <Image src={accountStore.currentUser?.icon || icons.upload} alt="Загрузить фото"/>
       <InputContainers>
-        <InputComponent placeholder="Имя" width="375" value={user.name} />
-        <InputComponent placeholder="О себе" width="375" value={user.about} />
-        <InputComponent placeholder="Любимые жанры" width="375" />
+        <InputComponent
+          placeholder="Имя"
+          width="375"
+          value={accountStore.currentUser?.name}
+        />
+        <InputComponent
+          placeholder="О себе"
+          width="375"
+          value={accountStore.currentUser?.about}
+        />
+        <InputComponent
+          placeholder="Любимые жанры"
+          width="375"
+        />
       </InputContainers>
       <Button
         src={icons.save}

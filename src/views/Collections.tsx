@@ -55,7 +55,6 @@ const Collections : React.FC = () => {
             to='/collections/wantToWatch'
             onClick={() => {
               collectionsStore.changeSelectedTab('WantToWatch')
-              console.log(collectionsStore.selectedTab)
             }}
           >
             Буду смотреть
@@ -64,7 +63,6 @@ const Collections : React.FC = () => {
             to='/collections/watched'
             onClick={() => {
               collectionsStore.changeSelectedTab('Watched')
-              console.log(collectionsStore.selectedTab)
             }}
           >
             Просмотрено

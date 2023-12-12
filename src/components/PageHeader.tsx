@@ -2,7 +2,6 @@ import styled from "styled-components"
 import { NavLink, useNavigate } from "react-router-dom"
 import { icons } from "../enums";
 import UseStores from "../hooks/useStores";
-import { user } from "../assets/data/user.data"
 import { colors } from "../enums"
 
 interface ProfileProps {
@@ -71,7 +70,6 @@ const ProfileLink = styled(NavLink)<ProfileProps>`
 const PageHeader : React.FC = () => {
   const navigate = useNavigate();
   const { accountStore } = UseStores();
-
   return (
     <Header>
       <NavLinks>
@@ -96,8 +94,8 @@ const PageHeader : React.FC = () => {
           Поиск
         </NavegateLink>
         <ProfileLink
-          to={'profile'}
-          img={user.icon}
+          to='profile'
+          img={accountStore.currentUser?.icon ? accountStore.currentUser?.icon : icons.profile}
         />
       </NavLinks>
     </Header>

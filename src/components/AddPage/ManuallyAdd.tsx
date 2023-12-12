@@ -44,7 +44,6 @@ const ManuallyAdd = () => {
       />
       <InputComponent
         width="440"
-        placeholder="Выберите из списка"
         title="Постер"
         types="photo"
       />

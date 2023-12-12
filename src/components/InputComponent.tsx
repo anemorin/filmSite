@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import { colors, icons } from "../enums"
+import { InputHTMLAttributes, useCallback } from "react"
+import React from "react"
 
 
 const Container = styled.div<Props>`
@@ -17,6 +19,7 @@ const Title = styled.p`
 
 const Input = styled.input<Props>`
     border: none;
+    color: ${(props) => props.isError ? colors.red : 'none'};
     border-bottom: 0.5px ${colors.dirtGray} solid;
     padding: 19px 0;
     width: ${(props) => props.width ? `${props.width}px` : '457px'};
@@ -35,7 +38,7 @@ const UploadButton = styled.button`
   cursor: pointer;
 `
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
     width?: string;
     title?: string;
     placeholder?: string;
@@ -44,11 +47,29 @@ interface Props {
     value?: string;
     isRequired?: boolean;
     textAlign?: 'center' | 'left';
+    onChangeValue?: (value : string) => void;
+    isError?: boolean;
 }
 
 const InputComponent : React.FC<Props> = ({
-  width, title, placeholder, types = 'text', value, validate, isRequired, textAlign,
+  width,
+  title,
+  placeholder,
+  types = 'text',
+  value,
+  validate,
+  isRequired,
+  textAlign,
+  onChangeValue,
+  isError
 }) => {
+
+  const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChangeValue) {
+      return onChangeValue(e.target.value)
+    }
+  }, [onChangeValue])
+
   return (
     <Container
       width={width}
@@ -69,6 +90,9 @@ const InputComponent : React.FC<Props> = ({
         type={validate}
         required={isRequired}
         textAlign={textAlign}
+        onChange={onChangeHandler}
+        min={10}
+        isError={isError}
       />
       )}
     </Container>
