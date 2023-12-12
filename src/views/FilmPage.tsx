@@ -6,7 +6,6 @@ import { colors, icons } from "../enums"
 import { useCallback, useState } from "react"
 import ModalWindow from "../components/ModalWindow"
 
-
 const FilmCover = styled.img`
   max-width: 267px;
   max-height: 417px;
@@ -62,7 +61,6 @@ const ScoreContainer = styled.p`
 const FilmPage = () => {
   const {id} = useParams()
   const filmItem = filmLibrary[Number(id)];
-
   const [modalWindow, setModalWindow] = useState(false);
 
   const closeHandler = useCallback(() => {

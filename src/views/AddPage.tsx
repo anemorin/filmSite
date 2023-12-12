@@ -1,5 +1,4 @@
 import { NavLink, Route, Routes, useNavigate } from "react-router-dom"
-import InputComponent from "../components/InputComponent"
 import PageLayout from "../components/PageLayout"
 import { PageTitle } from "../components/PageTitle"
 import Toggle from "../components/Toggle"

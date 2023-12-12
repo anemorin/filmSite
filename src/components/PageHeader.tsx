@@ -70,6 +70,7 @@ const ProfileLink = styled(NavLink)<ProfileProps>`
 const PageHeader : React.FC = () => {
   const navigate = useNavigate();
   const { accountStore } = UseStores();
+
   return (
     <Header>
       <NavLinks>
