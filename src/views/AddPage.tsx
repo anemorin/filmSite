@@ -5,9 +5,10 @@ import { PageTitle } from "../components/PageTitle"
 import Toggle from "../components/Toggle"
 import { observer } from "mobx-react-lite"
 import UseStores from "../hooks/useStores"
-import ManuallyAdd from "../components/ManuallyAdd"
+import ManuallyAdd from "../components/AddPage/ManuallyAdd"
 import styled from "styled-components"
 import { useEffect } from "react"
+import AutoAdd from "../components/AddPage/AutoAdd"
 
 const Container = styled.div`
   margin-top: 40px;
@@ -51,7 +52,7 @@ const AddPage = () => {
         <Routes>
           <Route
             path="auto"
-            element={<InputComponent placeholder="Например, Титаник" title="Название" width="473"></InputComponent>}
+            element={<AutoAdd />}
           />
           <Route
             path="manually"

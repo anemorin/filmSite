@@ -1,23 +1,26 @@
 import styled from "styled-components"
-import logo from "../assets/images/logo_small.svg"
 import { NavLink, useNavigate } from "react-router-dom"
-import ic_add from "../assets/images/ic_add.svg"
-import ic_film from "../assets/images/ic_film.svg"
-import ic_search from "../assets/images/ic_search.svg"
-import ic_profile_placeholder from "../assets/images/ic_profile_placeholder.svg"
+import { icons } from "../enums";
+import UseStores from "../hooks/useStores";
+import { user } from "../assets/data/user.data"
+import { colors } from "../enums"
+
+interface ProfileProps {
+  img: string,
+}
 
 const Header = styled.div`
   display: flex;
   width: 100%;
   height: 70px;
-  background-color: #F9F9F9;
+  background-color: ${colors.lightGray};
   align-items: center;
   justify-content: space-between;
 `;
 
 const Icon = styled.button`
   border: none;
-  background-color: #F9F9F9;
+  background-color: ${colors.lightGray};
   margin-right: 150px;
   cursor: pointer;
 `
@@ -40,57 +43,62 @@ const NavegateLink = styled(NavLink)`
   font-weight: 500;
   font-size: 18px;
   line-height: 21.48px;
-  color: black;
+  color: ${colors.black};
   border-radius: 24px;
 
   &.active {
-    background-color: #002DFF;
-    color: white;
+    background-color: ${colors.agonaBlue};
+    color: ${colors.white};
     img {
       filter: grayscale(1) brightness(1000%);
     }
   }
 `
 
-const ProfileLink = styled(NavLink)`
+const ProfileLink = styled(NavLink)<ProfileProps>`
   padding: 2px;
   display: flex;
   width: 40px;
   height: 40px;
+  border-radius: 36px;
+  background: center url(${(props) => props.img});
+  background-size: 150%;
   &.active {
-    border-radius: 36px;
-    background-color: #002DFF;
+    border: 2px ${colors.agonaBlue} solid;
   }
 `
 
 const PageHeader : React.FC = () => {
   const navigate = useNavigate();
+  const { accountStore } = UseStores();
+
   return (
     <Header>
       <NavLinks>
         <NavegateLink to='/collections'>
-          <img src={ic_film} />
+          <img src={icons.film} />
           Коллекция
         </NavegateLink>
         <NavegateLink to='/add'>
-          <img src={ic_add} />
+          <img src={icons.add} />
           Добавить
         </NavegateLink>
       </NavLinks>
       <Icon
         onClick={() => {navigate('/')}}
       >
-        <img src={logo}/>
+        <img src={icons.smallLogo}/>
       </Icon>
 
       <NavLinks>
         <NavegateLink to='/search'>
-          <img src={ic_search} />
+          <img src={icons.search} />
           Поиск
         </NavegateLink>
-        <ProfileLink to='/profile'>
-          <img src={ic_profile_placeholder} />
-        </ProfileLink>
+        <ProfileLink
+          to={'profile'}
+          img={user.icon}
+        />
       </NavLinks>
     </Header>
   )

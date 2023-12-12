@@ -1,17 +1,20 @@
 import PageLayout from "./components/PageLayout"
-import logo from "./assets/images/logo_full.svg"
-import agona_logo from "./assets/images/agona_logo.svg"
 import styled from "styled-components"
+import { icons } from "./enums"
 
 const MainLogo = styled.img`
-  margin: 300px 0;
+  margin: 250px 0;
+`
+
+const AgonaLogo = styled.img`
+  margin-bottom: 50px;
 `
 
 function App() {
   return (
     <PageLayout>
-      <MainLogo src={logo}/>
-      <img src={agona_logo}/>
+      <MainLogo src={icons.logo}/>
+      <AgonaLogo src={icons.agona}/>
     </PageLayout>
   )
 }

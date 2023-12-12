@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect } from "react"
 import styled from "styled-components";
 import Button from "../components/Button";
-import listViewIcon from "../assets/images/ic_list.svg"
-import tableViewIcon from "../assets/images/ic_thumbnails.svg"
 import PageLayout from "../components/PageLayout";
 import CardsContainer from "../components/CardsContainer";
 import TableContainer from "../components/TabContainer";
@@ -12,6 +10,7 @@ import { PageTitle } from "../components/PageTitle";
 import { observer } from 'mobx-react-lite';
 import useStores from '../hooks/useStores';
 import Toggle from "../components/Toggle";
+import { icons } from "../enums";
 
 const ButtonsPlaceholder = styled.div`
   display: flex;
@@ -72,7 +71,7 @@ const Collections : React.FC = () => {
           </NavLink>
         </Toggle>
         <Button
-          icon={collectionsStore.displayMode === 'Table' ? tableViewIcon : listViewIcon}
+          icon={collectionsStore.displayMode === 'Table' ? icons.tableViewIcon : icons.listViewIcon}
           onClick={() => {collectionsStore.changeDisplayMode()}}
           width={18}
           height={18}

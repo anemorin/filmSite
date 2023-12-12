@@ -1,12 +1,20 @@
 import PageLayout from "../components/PageLayout";
 import { PageTitle } from "../components/PageTitle";
-import upload_photo from "../assets/images/ic_add_image.svg"
-import btn_save from "../assets/images/ic_save.svg"
 import styled from "styled-components";
 import InputComponent from "../components/InputComponent";
+import { icons } from "../enums";
+import { user } from "../assets/data/user.data";
+import { useCallback, useState } from "react";
+import ModalWindow from "../components/ModalWindow";
 
 const Image = styled.img`
-  margin: 50px 0;
+  margin: 10px 0 50px 0;
+  max-width: 200px;
+  max-height: 200px;
+`
+const Button = styled.img`
+  margin: 80px 0 50px 0;
+  cursor: pointer;
 `
 
 const InputContainers = styled.div`
@@ -17,18 +25,33 @@ const InputContainers = styled.div`
 `
 
 const Profile = () => {
+  const [modalWindow, setModalWindow] = useState(false);
+
+  const closeHandler = useCallback(() => {
+    setModalWindow(false);
+  }, [modalWindow])
+
   return (
     <PageLayout>
       <PageTitle>
         Профиль
       </PageTitle>
-      <Image src={upload_photo} alt="Загрузить фото"/>
+      <Image src={user.icon} alt="Загрузить фото"/>
       <InputContainers>
-        <InputComponent placeholder="Имя" width="375" />
-        <InputComponent placeholder="О себе" width="375" />
+        <InputComponent placeholder="Имя" width="375" value={user.name} />
+        <InputComponent placeholder="О себе" width="375" value={user.about} />
         <InputComponent placeholder="Любимые жанры" width="375" />
       </InputContainers>
-      <Image src={btn_save} alt="Сохранить" />
+      <Button
+        src={icons.save}
+        alt="Сохранить"
+        onClick={() => {
+          setModalWindow(true);
+        }}
+      />
+      {modalWindow ? (
+        <ModalWindow onClose={closeHandler} />
+      ) : (<></>)}
     </PageLayout>
   )
 }

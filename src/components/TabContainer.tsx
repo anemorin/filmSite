@@ -1,7 +1,8 @@
 import styled from "styled-components"
 import { film } from "../assets/data/film.data"
-import arroy from "../assets/images/ic_arroy.svg"
 import { useNavigate } from "react-router-dom";
+import { icons } from "../enums";
+
 
 const Tab = styled.div`
   display: flex;
@@ -35,7 +36,7 @@ const TableContainer : React.FC<Props> = ({films}) => {
           onClick={() => {navigate(`/film/${film.id}`)}}
         >
           <p>{film.name}</p>
-          <img src={arroy} alt="Перейти"/>
+          <img src={icons.arroy} alt="Перейти"/>
         </Tab>
       )) : (
         <p>Ничего не найдено</p>

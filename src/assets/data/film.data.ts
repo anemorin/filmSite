@@ -7,6 +7,8 @@ export interface film {
   id: string,
 }
 
+// Тут имитация разных запросов в базу с разными выходными данными
+
 export const watchedFilms : film[] = [
   {
       name: 'Довод',

@@ -1,21 +1,22 @@
 import styled from "styled-components"
+import { colors } from "../enums"
 
 const TogglePlaceholder = styled.div`
   display: flex;
   align-items: center;
   max-width: 343px;
   height: 34px;
-  background-color: #7676801F;
+  background-color: ${colors.lightBlue};
   border-radius: 7px;
 
   a {
     margin: 2px;
     padding: 6px 32px;
     text-decoration: none;
-    color: black;
+    color: ${colors.black};
 
     &.active {
-      background-color: white;
+      background-color: ${colors.white};
       border-radius: 7px;
     }
   }

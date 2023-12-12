@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../enums";
 
 export interface Props {
   /** Иконка кнопки */
@@ -21,7 +22,6 @@ const ButtonComponent = styled.button<Props>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: inherit;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   border: none;
   font-weight: 500;
@@ -32,6 +32,9 @@ const ButtonComponent = styled.button<Props>`
   height: ${(props) => (props.height ? `${props.height}px` : 'auto')};
 `;
 
+const Icon = styled.img`
+  background-color: ${colors.white};
+`
 
 const Button: React.FC<Props> = ({
     children,
@@ -52,7 +55,7 @@ const Button: React.FC<Props> = ({
     >
       <div>
         {icon && (
-          <img
+          <Icon
             alt="icon"
             src={icon}
           />

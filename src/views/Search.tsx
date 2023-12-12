@@ -4,23 +4,9 @@ import PageLayout from "../components/PageLayout"
 import { PageTitle } from "../components/PageTitle";
 import { Recommendation, Oscar2021 } from "../assets/data/film.data";
 import InputComponent from "../components/InputComponent";
-
-const SearchBar = styled.input`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: none;
-  border-bottom: 0.5px #C6C6C8 solid;
-  max-width: 461px;
-  width: 100%;
-  height: 44px;
-  padding: 19px 16px;
-  cursor: pointer;
-
-  &::-webkit-input-placeholder {
-    color: #3C3C434D;
-  }
-`
+import { colors } from "../enums";
+import { useCallback, useState } from "react";
+import ModalWindow from "../components/ModalWindow";
 
 const Container = styled.div`
   display: flex;
@@ -33,17 +19,25 @@ const Container = styled.div`
 `
 const LinkButton = styled.button`
   border: none;
-  background-color: white;
-  color: #002DFF;
+  background-color: ${colors.white};
+  color: ${colors.agonaBlue};
   font-weight: 400;
   font-size: 17px;
+  cursor: pointer;
 `
 
 const Search = () => {
 
+  const [modalWindow, setModalWindow] = useState(false);
+  const closeHandler = useCallback(() => {
+    setModalWindow(false);
+  }, [modalWindow])
+
   const additionalButtons = () => {
     return (
-      <LinkButton>
+      <LinkButton
+        onClick={() => setModalWindow(true)}
+      >
         Все
       </LinkButton>
     )
@@ -65,6 +59,10 @@ const Search = () => {
           films={Oscar2021}
         />
       </Container>
+
+      {modalWindow ? (
+        <ModalWindow onClose={closeHandler} />
+      ) : (<></>)}
     </PageLayout>
   );
 }

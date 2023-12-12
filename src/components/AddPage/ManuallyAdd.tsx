@@ -1,7 +1,23 @@
-import InputComponent from "./InputComponent"
-import PageLayout from "./PageLayout"
+import styled from "styled-components"
+import InputComponent from "../InputComponent"
+import PageLayout from "../PageLayout"
+import { icons } from "../../enums"
+import { useCallback, useState } from "react"
+import ModalWindow from "../ModalWindow"
+
+const Button = styled.img`
+  margin: 40px 0 70px 0;
+  cursor: pointer;
+`
 
 const ManuallyAdd = () => {
+
+  const [modalWindow, setModalWindow] = useState(false);
+  const closeHandler = useCallback(() => {
+    setModalWindow(false);
+  }, [modalWindow])
+
+
   return (
     <PageLayout
       gap="20"
@@ -10,33 +26,38 @@ const ManuallyAdd = () => {
         width="440"
         placeholder="Например, Титаник"
         title="Название"
-      >
-      </InputComponent>
+      />
       <InputComponent
         width="440"
         placeholder="Укажите год выхода фильма"
         title="Год"
-      >
-      </InputComponent>
+      />
       <InputComponent
         width="440"
         placeholder="Напишите пару слов о сюжете"
         title="Описание"
-      >
-      </InputComponent>
+      />
       <InputComponent
         width="440"
         placeholder="Выберите из списка"
         title="Жанр"
-      >
-      </InputComponent>
+      />
       <InputComponent
         width="440"
         placeholder="Выберите из списка"
         title="Постер"
-        type="photo"
-      >
-      </InputComponent>
+        types="photo"
+      />
+      <Button
+        src={icons.save}
+        alt="Сохранить"
+        onClick={() => {
+          setModalWindow(true);
+        }}
+      />
+      {modalWindow ? (
+        <ModalWindow onClose={closeHandler} />
+      ) : (<></>)}
     </PageLayout>
   )
 }

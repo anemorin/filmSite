@@ -16,7 +16,7 @@ type LayoutProps = {
 }
 
 type Props = {
-  children?: React.ReactElement[] | React.ReactElement ;
+  children?: React.ReactElement[] | React.ReactElement;
   gap?: string;
 }
 

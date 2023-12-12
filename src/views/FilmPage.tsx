@@ -2,7 +2,10 @@ import { useParams } from "react-router-dom"
 import PageLayout from "../components/PageLayout"
 import {filmLibrary} from "../assets/data/film.data"
 import styled from "styled-components"
-import ic_add_button from "../assets/images/ic_add_button.svg"
+import { colors, icons } from "../enums"
+import { useCallback, useState } from "react"
+import ModalWindow from "../components/ModalWindow"
+
 
 const FilmCover = styled.img`
   max-width: 267px;
@@ -44,14 +47,14 @@ const AddButton = styled.img`
 
 const ScoreContainer = styled.p`
   padding: 1px, 8px, 2px, 8px;
-  color: #002DFF;
+  color: ${colors.agonaBlue};
   display: flex;
   justify-content: center;
   align-items: center;
   width: 36px;
   height: 23px;
   border-radius: 14px;
-  border: 3px solid #002DFF;
+  border: 3px solid ${colors.agonaBlue};
   font-weight: 600;
   font-size: 14px;
 `
@@ -59,6 +62,13 @@ const ScoreContainer = styled.p`
 const FilmPage = () => {
   const {id} = useParams()
   const filmItem = filmLibrary[Number(id)];
+
+  const [modalWindow, setModalWindow] = useState(false);
+
+  const closeHandler = useCallback(() => {
+    setModalWindow(false);
+  }, [modalWindow])
+
   return (
     <PageLayout>
       <PageContainer>
@@ -69,10 +79,18 @@ const FilmPage = () => {
             <p>{filmItem.year}</p>
             <ScoreContainer>{filmItem.score}</ScoreContainer>
           </AdditionalInfo>
-          <AddButton src={ic_add_button} alt="Буду смотреть"/>
+          <AddButton
+            src={icons.addButton}
+            alt="Буду смотреть"
+            onClick={() => setModalWindow(true)}
+          />
           <DescriptionContainer>{filmItem.description}</DescriptionContainer>
         </InformationContainer>
+        {/** Добавить тэги получаемые с бэка */}
       </PageContainer>
+      {modalWindow ? (
+        <ModalWindow onClose={closeHandler} />
+      ) : (<></>)}
     </PageLayout>
   )
 }
