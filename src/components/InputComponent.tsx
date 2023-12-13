@@ -49,6 +49,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     textAlign?: 'center' | 'left';
     onChangeValue?: (value : string) => void;
     isError?: boolean;
+    onClick?: () => void;
 }
 
 const InputComponent : React.FC<Props> = ({
@@ -61,7 +62,8 @@ const InputComponent : React.FC<Props> = ({
   isRequired,
   textAlign,
   onChangeValue,
-  isError
+  isError,
+  onClick,
 }) => {
 
   const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +81,9 @@ const InputComponent : React.FC<Props> = ({
         )
       }
       {types === 'photo' ? (
-        <UploadButton>
+        <UploadButton
+          onClick={onClick}
+        >
           <img src={icons.upload}/>
         </UploadButton>
       ) : (
@@ -91,7 +95,6 @@ const InputComponent : React.FC<Props> = ({
         required={isRequired}
         textAlign={textAlign}
         onChange={onChangeHandler}
-        min={10}
         isError={isError}
       />
       )}

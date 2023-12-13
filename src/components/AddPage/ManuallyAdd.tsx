@@ -46,6 +46,7 @@ const ManuallyAdd = () => {
         width="440"
         title="Постер"
         types="photo"
+        onClick={() => setModalWindow(true)}
       />
       <Button
         src={icons.save}

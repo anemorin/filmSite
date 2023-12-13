@@ -4,6 +4,7 @@ export interface user {
     icon?: string;
     name?: string;
     about?: string;
+    tags?: string;
 }
 
 export const users : user[] = [
@@ -13,5 +14,6 @@ export const users : user[] = [
         icon: 'https://chudo-prirody.com/uploads/posts/2021-08/1628637595_122-p-kotyata-milie-foto-132.jpg',
         name: 'аоаоаоаооаоаоа',
         about: 'хочу спать',
+        tags: '',
     }
 ]
